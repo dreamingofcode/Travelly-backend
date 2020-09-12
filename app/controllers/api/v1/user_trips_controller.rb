@@ -1,4 +1,5 @@
 class Api::V1::UserTripsController < ApplicationController
+  skip_before_action :authorized, only: [:create, :destroy,:put,:update]
  
     def index 
         @user_trip= UserTrips.all 
@@ -7,7 +8,7 @@ class Api::V1::UserTripsController < ApplicationController
 
     
      def create
-        @user_trip= UserTrips.create(trip_params)
+        @user_trip= UserTrip.create(trip_params)
     if @user_trip.valid?
       render json: { trip: @user_trip }, status: :created
     else
